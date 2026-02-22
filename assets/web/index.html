@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HAWK premium clothing. Precision, power, and presence." />
+  <title>HAWK - Premium Clothing</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+
+<!-- 🔐 AUTH SCREEN -->
+<div id="auth-screen" class="auth-container">
+  <h1 class="logo">HAWK</h1>
+
+  <input id="email" type="email" placeholder="Email" />
+  <input id="password" type="password" placeholder="Password" />
+
+  <button class="primary" onclick="login()">Login</button>
+  <button class="secondary" onclick="signup()">Create Account</button>
+
+  <p class="forgot" onclick="forgotPassword()">Forgot password?</p>
+
+  <div class="divider">OR</div>
+
+  <button class="google" onclick="googleLogin()">Continue with Google</button>
+</div>
+
+<!-- ✅ APP (FULL WEBSITE AFTER LOGIN) -->
+<div id="app" style="display:none;">
+
+  <!-- 👤 PROFILE BAR -->
+  <div class="profile-bar">
+    <span id="profile-email"></span>
+    <span id="profile-role"></span>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <!-- ===== YOUR WEBSITE STARTS HERE ===== -->
+
+  <!-- HEADER -->
+  <header class="navbar">
+    <a href="#home" class="brand-link">
+      <img src="assets/logo.png" class="logo" alt="HAWK Logo" />
+    </a>
+
+    <nav id="nav-links" class="nav-links">
+      <a href="#featured">Featured</a>
+      <a href="#collection">Collection</a>
+      <a href="#editorial">Editorial</a>
+      <a href="#about">The Brand</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <button class="burger" id="burger" type="button">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="assets/hero-video.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>HAWK</h1>
+      <p>Strength in Silence</p>
+      <a href="#collection" class="btn">Explore Collection</a>
+    </div>
+  </section>
+
+  <!-- 🔒 ADMIN ONLY -->
+  <section class="admin-only">
+    <h2>Admin Panel</h2>
+    <p>Only visible to admins</p>
+  </section>
+  
+  <section id="featured" class="featured cinematic reveal">
+    <div class="featured-shell">
+      <article class="featured-card">
+        <div class="featured-media">
+          <span class="featured-badge">Featured Drop</span>
+          <img src="assets/logo.png" alt="HAWK Vanguard Set" />
+        </div>
+        <div class="featured-content">
+          <p class="featured-kicker">Drop 01 - Vanguard Set</p>
+          <h2>Built For Presence</h2>
+          <p>
+            A limited release pairing a structured jacket with a clean base layer.
+            Designed to hold shape, movement, and identity from day to night.
+          </p>
+          <div class="drop-countdown" aria-live="polite">
+            <div><strong id="count-days">00</strong><span>Days</span></div>
+            <div><strong id="count-hours">00</strong><span>Hours</span></div>
+            <div><strong id="count-mins">00</strong><span>Minutes</span></div>
+            <div><strong id="count-secs">00</strong><span>Seconds</span></div>
+          </div>
+          <a class="btn" href="#contact">Get Early Access</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="collection" class="collection cinematic reveal">
+    <div class="section-intro">
+      <h2>Collection 2026</h2>
+      <p>Precision. Power. Presence.</p>
+    </div>
+
+    <div class="collection-filters" role="tablist" aria-label="Collection filters">
+      <button class="filter-btn active" type="button" data-filter="all" aria-selected="true">All</button>
+      <button class="filter-btn" type="button" data-filter="shirts" aria-selected="false">Shirts</button>
+      <button class="filter-btn" type="button" data-filter="outerwear" aria-selected="false">Outerwear</button>
+      <button class="filter-btn" type="button" data-filter="core" aria-selected="false">Core</button>
+    </div>
+
+    <div class="product-intro">
+      <article class="product-feature" id="product-feature" aria-live="polite">
+        <div class="product-visual-wrap">
+          <span class="product-serial" id="product-serial">01</span>
+          <img id="product-image" src="assets/logo.png" alt="Signature Shirt" />
+        </div>
+        <div class="product-details">
+          <p class="product-kicker" id="product-kicker">HAWK Collection</p>
+          <h3 id="product-name">Signature Shirt</h3>
+          <p class="product-desc" id="product-desc">
+            Clean tailoring with sharp structure and minimal finish for a disciplined silhouette.
+          </p>
+          <ul class="product-facts">
+            <li><span>Fit</span><strong id="product-fit">Tailored</strong></li>
+            <li><span>Material</span><strong id="product-material">Premium Cotton</strong></li>
+            <li><span>Care</span><strong id="product-care">Cold Wash</strong></li>
+          </ul>
+          <div class="product-cta">
+            <strong class="feature-price" id="product-price">$120</strong>
+            <a href="#contact" class="btn">Request Availability</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="product-selector" role="tablist" aria-label="Product options">
+        <button
+          class="product-option active"
+          type="button"
+          role="tab"
+          aria-selected="true"
+          data-id="01"
+          data-image="assets/logo.png"
+          data-name="Signature Shirt"
+          data-kicker="HAWK Collection"
+          data-desc="Clean tailoring with sharp structure and minimal finish for a disciplined silhouette."
+          data-fit="Tailored"
+          data-material="Premium Cotton"
+          data-care="Cold Wash"
+          data-group="shirts"
+          data-price="$120"
+        >
+          <span class="option-id">01</span>
+          <span class="option-info">
+            <strong>Signature Shirt</strong>
+            <small>Structured Essential</small>
+          </span>
+          <span class="option-price">$120</span>
+        </button>
+
+        <button
+          class="product-option"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-id="02"
+          data-image="assets/logo.png"
+          data-name="Tailored Jacket"
+          data-kicker="HAWK Atelier"
+          data-desc="A confident outer layer engineered with a sharp shoulder line and controlled volume."
+          data-fit="Structured"
+          data-material="Wool Blend"
+          data-care="Dry Clean"
+          data-group="outerwear"
+          data-price="$260"
+        >
+          <span class="option-id">02</span>
+          <span class="option-info">
+            <strong>Tailored Jacket</strong>
+            <small>Command Fit</small>
+          </span>
+          <span class="option-price">$260</span>
+        </button>
+
+        <button
+          class="product-option"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-id="03"
+          data-image="assets/logo.png"
+          data-name="Essential Tee"
+          data-kicker="HAWK Core"
+          data-desc="Soft-touch comfort tuned for daily wear, grounded in a strong and minimal cut."
+          data-fit="Relaxed"
+          data-material="Organic Cotton"
+          data-care="Machine Wash"
+          data-group="core"
+          data-price="$90"
+        >
+          <span class="option-id">03</span>
+          <span class="option-info">
+            <strong>Essential Tee</strong>
+            <small>Clean Base Layer</small>
+          </span>
+          <span class="option-price">$90</span>
+        </button>
+
+        <button
+          class="product-option"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-id="04"
+          data-image="assets/logo.png"
+          data-name="Oxford Shirt"
+          data-kicker="HAWK Collection"
+          data-desc="Crisp everyday structure with understated detailing for elevated daily movement."
+          data-fit="Regular"
+          data-material="Cotton Poplin"
+          data-care="Cold Wash"
+          data-group="shirts"
+          data-price="$110"
+        >
+          <span class="option-id">04</span>
+          <span class="option-info">
+            <strong>Oxford Shirt</strong>
+            <small>Daily Precision</small>
+          </span>
+          <span class="option-price">$110</span>
+        </button>
+
+        <button
+          class="product-option"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-id="05"
+          data-image="assets/logo.png"
+          data-name="Field Coat"
+          data-kicker="HAWK Atelier"
+          data-desc="Protective profile with utility pockets and a clean front for urban weather shifts."
+          data-fit="Oversized"
+          data-material="Nylon Blend"
+          data-care="Spot Clean"
+          data-group="outerwear"
+          data-price="$310"
+        >
+          <span class="option-id">05</span>
+          <span class="option-info">
+            <strong>Field Coat</strong>
+            <small>Urban Shield</small>
+          </span>
+          <span class="option-price">$310</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="editorial" class="editorial cinematic-full reveal">
+    <div class="editorial-overlay">
+      <h2>Move With Intention</h2>
+    </div>
+  </section>
+
+  <section class="editorial-gallery cinematic reveal" aria-label="Editorial gallery">
+    <div class="gallery-strip">
+      <figure class="gallery-item">
+        <img src="assets/logo.png" alt="Editorial still 1" />
+        <figcaption>Night Geometry</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="assets/logo.png" alt="Editorial still 2" />
+        <figcaption>Concrete Drift</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="assets/logo.png" alt="Editorial still 3" />
+        <figcaption>Silent Command</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="assets/logo.png" alt="Editorial still 4" />
+        <figcaption>Monochrome Motion</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="assets/logo.png" alt="Editorial still 5" />
+        <figcaption>After Hours Fit</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="press cinematic reveal" aria-label="Seen on">
+    <div class="section-intro">
+      <h2>Press / Seen On</h2>
+      <p>Selected features and creative collaborators.</p>
+    </div>
+    <div class="press-row">
+      <span>URBAN EDIT</span>
+      <span>STREET MODE</span>
+      <span>THE CUT JOURNAL</span>
+      <span>NOIR CREATIVES</span>
+      <span>CITY FRAME</span>
+    </div>
+  </section>
+
+  <section class="testimonials cinematic reveal" aria-label="Testimonials">
+    <div class="section-intro">
+      <h2>Voices</h2>
+      <p>What customers and collaborators say.</p>
+    </div>
+    <div class="testimonial-slider" id="testimonial-slider">
+      <article class="testimonial-slide active">
+        <blockquote>"The fit is sharp without trying too hard. It changed how I dress for every meeting."</blockquote>
+        <p>- Arin, Creative Director</p>
+      </article>
+      <article class="testimonial-slide">
+        <blockquote>"Materials feel premium and durable. The silhouette holds all day."</blockquote>
+        <p>- Maya, Product Stylist</p>
+      </article>
+      <article class="testimonial-slide">
+        <blockquote>"HAWK pieces look cinematic in shoots and still work in everyday life."</blockquote>
+        <p>- Ken, Visual Collaborator</p>
+      </article>
+      <div class="testimonial-controls" role="tablist" aria-label="Testimonial controls">
+        <button class="testimonial-dot active" type="button" aria-label="Show testimonial 1"></button>
+        <button class="testimonial-dot" type="button" aria-label="Show testimonial 2"></button>
+        <button class="testimonial-dot" type="button" aria-label="Show testimonial 3"></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about cinematic reveal">
+    <div class="section-intro">
+      <h2>The Brand</h2>
+    </div>
+
+    <div class="story">
+      <p>
+        HAWK is built on precision and dominance.
+        Every stitch reflects discipline.
+        Every silhouette commands presence.
+      </p>
+    </div>
+
+    <div class="craftsmanship">
+      <h3>Craftsmanship</h3>
+      <div class="craft-grid">
+        <article>
+          <span>01</span>
+          <h4>Design</h4>
+          <p>Each concept starts from movement and structure, balancing function with a bold profile.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h4>Cut</h4>
+          <p>Patterns are tuned for proportion and posture, creating clean lines that hold shape.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h4>Finish</h4>
+          <p>Final details are refined for consistency, texture, and the signature HAWK visual identity.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="faq cinematic reveal">
+    <div class="section-intro">
+      <h2>Frequently Asked Questions</h2>
+      <p>Shipping, sizing, and returns at a glance.</p>
+    </div>
+    <div class="faq-list">
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          How long does shipping take?
+        </button>
+        <div class="faq-answer">
+          <p>Orders are processed within 24-48 hours. Standard delivery usually arrives in 3-7 business days.</p>
+        </div>
+      </article>
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          Do you offer international delivery?
+        </button>
+        <div class="faq-answer">
+          <p>Yes. We ship to selected international locations. Delivery times vary by region and customs processing.</p>
+        </div>
+      </article>
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          What if my size does not fit?
+        </button>
+        <div class="faq-answer">
+          <p>You can request an exchange within 14 days of delivery as long as the item is unworn and in original condition.</p>
+        </div>
+      </article>
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          Can I return sale items?
+        </button>
+        <div class="faq-answer">
+          <p>Sale items are final. If there is a quality issue, contact us and our team will review it promptly.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="size-fit cinematic reveal" aria-label="Size and fit guide">
+    <div class="section-intro">
+      <h2>Size & Fit Guide</h2>
+      <p>Choose with confidence before checkout.</p>
+    </div>
+    <div class="fit-guide">
+      <article class="fit-item">
+        <button class="fit-question" type="button" aria-expanded="false">How should I pick my size?</button>
+        <div class="fit-answer">
+          <p>Use your chest and shoulder measurements first. If you are between sizes, choose up for relaxed fit and down for sharper structure.</p>
+        </div>
+      </article>
+      <article class="fit-item">
+        <button class="fit-question" type="button" aria-expanded="false">Do jackets run true to size?</button>
+        <div class="fit-answer">
+          <p>Most outerwear is intentionally structured. If you plan to layer hoodies, we recommend sizing up by one.</p>
+        </div>
+      </article>
+      <article class="fit-item">
+        <button class="fit-question" type="button" aria-expanded="false">Can I exchange for a better fit?</button>
+        <div class="fit-answer">
+          <p>Yes. Exchanges are available within 14 days for unworn items with tags attached.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" class="contact cinematic reveal">
+    <div class="section-intro">
+      <h2>Contact</h2>
+    </div>
+
+    <form class="contact-form">
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <textarea rows="4" name="message" placeholder="Message" required></textarea>
+      <button class="btn" type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-line" aria-hidden="true"></div>
+    <div class="footer-content">
+      <p class="footer-brand">HAWK</p>
+      <p class="footer-tagline">Precision. Power. Presence.</p>
+      <form class="newsletter-form">
+        <label class="sr-only" for="newsletter-email">Email</label>
+        <input id="newsletter-email" type="email" name="newsletter_email" placeholder="Enter your email for drop alerts" required />
+        <button type="submit">Subscribe</button>
+      </form>
+      <nav class="footer-socials" aria-label="Social media links">
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M13.5 22v-8h2.7l.5-3h-3.2V9.1c0-.9.3-1.6 1.7-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V11H8v3h2.5v8h3z"></path>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm11.5 1.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+          </svg>
+        </a>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21.6 7.2a2.8 2.8 0 0 0-2-2c-1.8-.5-7.6-.5-7.6-.5s-5.8 0-7.6.5a2.8 2.8 0 0 0-2 2A29.6 29.6 0 0 0 2 12a29.6 29.6 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.8 2.8 0 0 0 2-2A29.6 29.6 0 0 0 22 12a29.6 29.6 0 0 0-.4-4.8zM10 15.5v-7L16 12l-6 3.5z"></path>
+          </svg>
+        </a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 HAWK Premium Clothing</p>
+    </div>
+    <div class="footer-orb footer-orb-left" aria-hidden="true"></div>
+    <div class="footer-orb footer-orb-right" aria-hidden="true"></div>
+  </footer>
+</body>
+</html>
