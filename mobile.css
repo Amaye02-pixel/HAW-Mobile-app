@@ -10,16 +10,16 @@ html, body {
   height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: #f4f4f4;
-  overflow: hidden;
+  overflow: auto;   /* ✅ FIX */
 }
 
-/* ===== IFRAME (CRITICAL: DO NOT CHANGE) ===== */
+/* ===== IFRAME (CRITICAL) ===== */
 iframe {
   width: 100%;
   height: 100%;
   border: none;
   display: block;
-  pointer-events: auto;     /* MUST be enabled */
+  pointer-events: auto;
   touch-action: manipulation;
 }
 
