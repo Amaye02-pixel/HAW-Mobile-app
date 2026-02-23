@@ -12,53 +12,46 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
- <script defer src="./script.js"></script>
+  <!-- 🔥 MESSAGE BRIDGE (MUST BE BEFORE script.js) -->
+  <script>
+    window.addEventListener("message", (e) => {
+      const { type, email, password } = e.data || {};
 
-  <style>
-    /* 🔥 CRITICAL: iframe touch fix */
-    .screen {
-      position: absolute;
-      top: 56px;
-      left: 0;
-      right: 0;
-      bottom: 56px;
-      width: 100%;
-      border: none;
-      pointer-events: none;
-    }
+      if (type === "login") login(email, password);
+      if (type === "signup") signup(email, password);
+      if (type === "reset") forgotPassword(email);
+      if (type === "google") googleLogin();
+    });
+  </script>
 
-    .screen.active {
-      pointer-events: auto;
-    }
-  </style>
+  <!-- Main JS -->
+  <script src="./script.js"></script>
 </head>
 
 <body>
 
-<!-- 🔐 LOGIN SCREEN -->
+<!-- 🔐 LOGIN -->
 <iframe
   id="login-frame"
   src="./mobile-login.html"
-  class="screen active"
+  class="screen"
+  style="display:none;"
 ></iframe>
 
 <!-- 📱 APP -->
 <div id="app" style="display:none;">
 
-  <!-- Top App Bar -->
   <header class="app-header">
     <span class="brand">HAWK</span>
     <button onclick="openProfile()">👤</button>
   </header>
 
-  <!-- Content -->
   <iframe
     id="app-frame"
     src="./mobile-home.html"
     class="screen"
   ></iframe>
 
-  <!-- Bottom Navigation -->
   <nav class="bottom-nav">
     <button onclick="openHome()">Home</button>
     <button onclick="openProfile()">Profile</button>
@@ -68,33 +61,22 @@
 </div>
 
 <script>
-  const loginFrame = document.getElementById("login-frame");
-  const appFrame = document.getElementById("app-frame");
-  const app = document.getElementById("app");
-
   function openHome() {
-    appFrame.src = "mobile-home.html";
+    document.getElementById("app-frame").src = "./mobile-home.html";
   }
 
   function openProfile() {
-    appFrame.src = "mobile-profile.html";
+    document.getElementById("app-frame").src = "./mobile-profile.html";
   }
 
-  // called from script.js
-  window.showLogin = function () {
-    loginFrame.style.display = "block";
-    loginFrame.classList.add("active");
-
-    app.style.display = "none";
-    appFrame.classList.remove("active");
+  window.showLogin = () => {
+    document.getElementById("login-frame").style.display = "block";
+    document.getElementById("app").style.display = "none";
   };
 
-  window.showApp = function () {
-    loginFrame.style.display = "none";
-    loginFrame.classList.remove("active");
-
-    app.style.display = "block";
-    appFrame.classList.add("active");
+  window.showApp = () => {
+    document.getElementById("login-frame").style.display = "none";
+    document.getElementById("app").style.display = "block";
   };
 </script>
 
