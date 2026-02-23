@@ -1,9 +1,14 @@
-# Ignore everything
+# Ignore everything by default
 *
 
-# Allow web folder only
-!web/
-!web/**
+# Allow root files
+!*.html
+!*.css
+!*.js
+
+# Allow assets folder
+!assets/
+!assets/**
 
 # Allow git config
 !.gitignore
