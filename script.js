@@ -11,9 +11,12 @@ const firebaseConfig = {
   measurementId: "G-XJ2M0W3LQB"
 };
 
-let auth;
-let db;
+let auth = null;
+let db = null;
 
+/**************************************************
+ INIT
+**************************************************/
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.firebase) {
     console.error("Firebase not loaded");
@@ -55,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const data = (await ref.get()).data();
 
-    if (data?.role === "admin") {
+    if (data && data.role === "admin") {
       document.body.classList.add("admin");
     } else {
       document.body.classList.remove("admin");
@@ -74,7 +77,8 @@ window.login = (email, password) => {
     return;
   }
 
-  auth.signInWithEmailAndPassword(email, password)
+  auth
+    .signInWithEmailAndPassword(email, password)
     .catch(err => alert(err.message));
 };
 
@@ -84,7 +88,8 @@ window.signup = (email, password) => {
     return;
   }
 
-  auth.createUserWithEmailAndPassword(email, password)
+  auth
+    .createUserWithEmailAndPassword(email, password)
     .then(res => {
       return db.collection("users").doc(res.user.uid).set({
         email: res.user.email,
@@ -101,7 +106,8 @@ window.forgotPassword = (email) => {
     return;
   }
 
-  auth.sendPasswordResetEmail(email)
+  auth
+    .sendPasswordResetEmail(email)
     .then(() => alert("Password reset email sent"))
     .catch(err => alert(err.message));
 };
@@ -120,7 +126,9 @@ window.logout = () => {
  IFRAME → PARENT MESSAGE HANDLER
 **************************************************/
 window.addEventListener("message", (event) => {
-  const { type, email, password } = event.data || {};
+  if (!event || !event.data) return;
+
+  const { type, email, password } = event.data;
 
   if (type === "login") login(email, password);
   if (type === "signup") signup(email, password);
