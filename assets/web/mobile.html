@@ -1,35 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+  <title>HAWK Mobile</title>
+
   <link rel="stylesheet" href="mobile.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
   <script defer src="script.js"></script>
 </head>
 
 <body>
 
-<!-- Top App Bar -->
-<header class="app-header">
-  <span>HAWK</span>
-  <button onclick="location.href='mobile-profile.html'">👤</button>
-</header>
+<!-- 🔐 LOGIN SCREEN -->
+<iframe
+  id="login-frame"
+  src="mobile-login.html"
+  class="screen"
+  style="display:none;"
+></iframe>
 
-<!-- Screen container -->
-<main class="screen" id="screen">
-  <!-- injected content -->
-</main>
+<!-- 📱 APP -->
+<div id="app" style="display:none;">
 
-<!-- Bottom Navigation -->
-<nav class="bottom-nav">
-  <button onclick="go('mobile-home.html')">Home</button>
-  <button onclick="go('mobile-profile.html')">Profile</button>
-  <button onclick="logout()">Logout</button>
-</nav>
+  <!-- Top App Bar -->
+  <header class="app-header">
+    <span class="brand">HAWK</span>
+    <button onclick="openProfile()">👤</button>
+  </header>
+
+  <!-- Content -->
+  <iframe
+    id="app-frame"
+    src="mobile-home.html"
+    class="screen"
+  ></iframe>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button onclick="openHome()">Home</button>
+    <button onclick="openProfile()">Profile</button>
+    <button onclick="logout()">Logout</button>
+  </nav>
+
+</div>
 
 <script>
-  function go(page) {
-    document.getElementById("screen").src = page;
+  function openHome() {
+    document.getElementById("app-frame").src = "mobile-home.html";
   }
+
+  function openProfile() {
+    document.getElementById("app-frame").src = "mobile-profile.html";
+  }
+
+  // These are called from script.js after auth
+  window.showLogin = function () {
+    document.getElementById("login-frame").style.display = "block";
+    document.getElementById("app").style.display = "none";
+  };
+
+  window.showApp = function () {
+    document.getElementById("login-frame").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  };
 </script>
 
 </body>

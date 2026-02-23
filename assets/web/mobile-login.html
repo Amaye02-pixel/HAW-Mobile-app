@@ -1,7 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="mobile.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+
 <div class="auth-container">
   <h1>HAWK</h1>
-  <input id="email" />
-  <input id="password" />
+  <input id="email" type="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+
   <button onclick="login()">Login</button>
   <button onclick="signup()">Create Account</button>
+
+  <p onclick="forgotPassword()">Forgot password?</p>
+  <button onclick="googleLogin()">Continue with Google</button>
 </div>
+
+</body>
+</html>

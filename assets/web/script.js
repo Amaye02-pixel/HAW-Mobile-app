@@ -1,4 +1,4 @@
-﻿/**************************************************
+/**************************************************
  FIREBASE CONFIG
 **************************************************/
  const firebaseConfig = {
@@ -36,44 +36,45 @@ document.addEventListener("DOMContentLoaded", () => {
   window.auth = auth;
   window.db = db;
 
-  auth.onAuthStateChanged(async user => {
-    if (!user) {
-      document.body.classList.remove("logged-in", "admin");
-      if (authScreen) authScreen.style.display = "flex";
-      if (appRoot) appRoot.style.display = "none";
-      return;
-    }
+auth.onAuthStateChanged(async user => {
 
-    document.body.classList.add("logged-in");
+  // ? USER NOT LOGGED IN
+  if (!user) {
+    document.body.classList.remove("logged-in", "admin");
+    showLogin();              // ?? correct place
+    return;
+  }
 
-    const ref = db.collection("users").doc(user.uid);
-    const snap = await ref.get();
+  // ? USER LOGGED IN
+  document.body.classList.add("logged-in");
 
-    if (!snap.exists) {
-      await ref.set({
-        email: user.email,
-        role: "user",
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    }
+  const ref = db.collection("users").doc(user.uid);
+  const snap = await ref.get();
 
-    const data = (await ref.get()).data();
-    if (profileEmail) profileEmail.textContent = data.email || user.email || "";
-    if (profileRole) profileRole.textContent = `Role: ${data.role || "user"}`;
+  if (!snap.exists) {
+    await ref.set({
+      email: user.email,
+      role: "user",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }
 
-    if (data.role === "admin") {
-      document.body.classList.add("admin");
-    } else {
-      document.body.classList.remove("admin");
-    }
+  const data = (await ref.get()).data();
 
-    if (authScreen) authScreen.style.display = "none";
-    if (appRoot) appRoot.style.display = "block";
-  });
+  if (profileEmail) profileEmail.textContent = data.email || user.email || "";
+  if (profileRole) profileRole.textContent = `Role: ${data.role || "user"}`;
+
+  if (data.role === "admin") {
+    document.body.classList.add("admin");
+  } else {
+    document.body.classList.remove("admin");
+  }
+
+  showApp();                  // ?? correct place
 });
 
 /**************************************************
- 🔐 AUTH ACTIONS
+ ?? AUTH ACTIONS
 **************************************************/
 function signup() {
   if (!auth || !db) {
@@ -441,3 +442,23 @@ if (testimonialSlides.length > 0 && testimonialDots.length > 0) {
 
   startTestimonials();
 }
+
+/**************************************************
+ ?? MOBILE APP SHELL CONTROL (mobile.html)
+**************************************************/
+function showLogin() {
+  const loginFrame = document.getElementById("login-frame");
+  const appRoot = document.getElementById("app");
+
+  if (loginFrame) loginFrame.style.display = "block";
+  if (appRoot) appRoot.style.display = "none";
+}
+
+function showApp() {
+  const loginFrame = document.getElementById("login-frame");
+  const appRoot = document.getElementById("app");
+
+  if (loginFrame) loginFrame.style.display = "none";
+  if (appRoot) appRoot.style.display = "block";
+}
+});
