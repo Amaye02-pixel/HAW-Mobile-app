@@ -1,8 +1,7 @@
 /* ======================================================
-   HAWK MOBILE — CLEAN, PROFESSIONAL, APP-STYLE
+   HAWK MOBILE APP — FINAL STABLE
    ====================================================== */
 
-/* ===== GLOBAL RESET ===== */
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -10,159 +9,51 @@
 
 html,
 body {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
   background: #000;
   color: #fff;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  overflow-x: hidden;
 }
 
-/* ===== PREVENT DESKTOP CSS BLEED ===== */
-header,
+/* ===== APP ROOT ===== */
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+}
+
+/* ===== HIDE DESKTOP ELEMENTS ===== */
 nav,
-.navbar,
-.desktop-nav,
-.site-header,
-.container,
-.wrapper,
-.page,
-main {
+header,
+.desktop,
+.desktop-only {
   display: none !important;
 }
 
-/* ===== IFRAME (CRITICAL) ===== */
-iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-  background: #000;
-  pointer-events: auto;
-  touch-action: manipulation;
-}
-
-/* ===== APP SHELL ===== */
-#app {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background: #000;
-}
-
-/* ===== TOP BAR ===== */
-.app-header {
-  height: 56px;
-  background: #000;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  flex-shrink: 0;
-}
-
-.app-header .brand {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 3px;
-}
-
-.app-header button {
-  background: none;
-  border: none;
-  color: #c9a24d;
-  font-size: 20px;
-}
-
-/* ===== MAIN CONTENT FRAME ===== */
-#app-frame {
-  flex: 1;
-  width: 100%;
-  background: #000;
-}
-
-/* ===== BOTTOM NAV ===== */
-.bottom-nav {
-  height: 56px;
-  background: linear-gradient(to top, #0a0a0a, #000);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.bottom-nav button {
-  background: none;
-  border: none;
-  color: #c9a24d;
-  font-size: 13px;
-  letter-spacing: 1px;
-}
-
 /* ======================================================
-   LOGIN SCREEN
-   ====================================================== */
-.login-container {
-  min-height: 100vh;
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: radial-gradient(circle at top, #111, #000);
-}
-
-.login-container h1 {
-  text-align: center;
-  letter-spacing: 4px;
-  margin-bottom: 32px;
-}
-
-.login-container input {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 14px;
-  background: #0d0d0d;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: #fff;
-  font-size: 16px;
-}
-
-.login-container button {
-  margin-top: 8px;
-  padding: 14px;
-  background: linear-gradient(135deg, #c9a24d, #8a6a2a);
-  color: #000;
-  border: none;
-  font-weight: 600;
-  letter-spacing: 1px;
-  border-radius: 4px;
-}
-
-/* ======================================================
-   HERO
+   HERO (HOME / PROFILE)
    ====================================================== */
 .hero {
-  min-height: 100vh;
-  background: radial-gradient(circle at center, #111, #000 70%);
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   text-align: center;
+  background:
+    radial-gradient(circle at center, rgba(198,161,91,0.18), transparent 60%),
+    #000;
 }
 
 .hero h1 {
+  font-size: 34px;
   letter-spacing: 6px;
-  font-size: 36px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .hero p {
+  font-size: 13px;
   opacity: 0.7;
   letter-spacing: 2px;
 }
@@ -171,17 +62,82 @@ iframe {
    SECTIONS
    ====================================================== */
 .section {
-  padding: 28px 18px;
+  padding: 26px 18px;
 }
 
 .section h2 {
-  margin-bottom: 16px;
+  font-size: 17px;
   letter-spacing: 2px;
+  margin-bottom: 14px;
 }
 
 .section h3 {
-  margin-top: 16px;
-  opacity: 0.85;
+  font-size: 14px;
+  opacity: 0.75;
+  letter-spacing: 1.2px;
+}
+
+/* ======================================================
+   PROFILE AVATAR
+   ====================================================== */
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: #000;
+  background:
+    radial-gradient(circle at top, #e3c07a, #8f6d2f);
+  box-shadow: 0 10px 28px rgba(198,161,91,0.35);
+}
+
+/* ======================================================
+   PROFILE CARD
+   ====================================================== */
+.profile-card {
+  background:
+    linear-gradient(180deg, rgba(18,18,18,0.95), rgba(8,8,8,0.95));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 18px 16px;
+  margin-bottom: 20px;
+}
+
+.profile-card .label {
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  opacity: 0.55;
+  text-transform: uppercase;
+}
+
+.profile-card .value {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+/* ======================================================
+   LOGOUT BUTTON
+   ====================================================== */
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+button.danger {
+  background: transparent;
+  color: #c6a15b;
+  border: 1px solid #c6a15b;
 }
 
 /* ======================================================
@@ -189,31 +145,33 @@ iframe {
    ====================================================== */
 .product {
   display: flex;
+  align-items: center;
   gap: 14px;
   padding: 14px;
-  background: #0b0b0b;
+  margin-bottom: 12px;
+  background: #0c0c0c;
   border: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 14px;
+  border-radius: 8px;
 }
 
 .product img {
-  width: 72px;
-  height: 72px;
-  object-fit: cover;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
 }
 
 .product strong {
-  display: block;
+  font-size: 14px;
   letter-spacing: 1px;
 }
 
 .product p {
-  opacity: 0.7;
-  font-size: 14px;
+  font-size: 12px;
+  opacity: 0.65;
 }
 
 /* ======================================================
-   HORIZONTAL SCROLL
+   EDITORIAL SCROLL
    ====================================================== */
 .scroll-row {
   display: flex;
@@ -222,63 +180,62 @@ iframe {
 }
 
 .scroll-row img {
-  width: 160px;
-  height: 220px;
+  width: 140px;
+  height: 190px;
   object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 /* ======================================================
-   PROFILE PAGE
-   ====================================================== */
-.profile {
-  padding: 32px 20px;
-}
-
-.profile p {
-  opacity: 0.8;
-  margin-bottom: 8px;
-}
-
-.profile button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
-  background: #c9a24d;
-  border: none;
-  color: #000;
-  font-weight: 600;
-}
-
-/* ======================================================
-   FAQ / DETAILS
+   FAQ
    ====================================================== */
 details {
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  padding: 10px 0;
+  background: #0d0d0d;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
 }
 
 summary {
-  cursor: pointer;
+  font-size: 14px;
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
 /* ======================================================
-   FORMS
+   CONTACT / SUPPORT
    ====================================================== */
 input,
 textarea {
   width: 100%;
-  background: #0d0d0d;
+  padding: 12px;
+  background: #0e0e0e;
   border: 1px solid rgba(255,255,255,0.15);
   color: #fff;
-  padding: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
 }
 
 textarea {
-  min-height: 100px;
+  min-height: 90px;
 }
 
-button {
-  cursor: pointer;
+/* ======================================================
+   LINKS
+   ====================================================== */
+.links {
+  font-size: 13px;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* ======================================================
+   SAFE TOUCH
+   ====================================================== */
+button,
+summary {
+  touch-action: manipulation;
 }

@@ -1,22 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <link rel="stylesheet" href="./mobile.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>HAWK — Profile</title>
+
+  <link rel="stylesheet" href="./mobile.css" />
   <script defer src="./script.js"></script>
 </head>
 <body>
 
 <!-- PROFILE HERO -->
-<section class="hero" style="min-height: 40vh;">
+<section class="hero" style="min-height: 36vh;">
   <h1>PROFILE</h1>
   <p>HAWK MEMBER ACCESS</p>
 </section>
 
-<!-- PROFILE INFO -->
+<!-- PROFILE CONTENT -->
 <section class="section">
-  <h2>Account</h2>
 
+  <!-- AVATAR -->
+  <div class="profile-avatar" id="profile-avatar">
+    H
+  </div>
+
+  <!-- ACCOUNT CARD -->
   <div class="profile-card">
     <p class="label">Email</p>
     <p class="value" id="profile-email">—</p>
@@ -25,15 +33,20 @@
     <p class="value" id="profile-role">—</p>
   </div>
 
+  <!-- ACTION -->
   <button class="danger" onclick="logout()">Logout</button>
+
 </section>
 
-<!-- BRAND LINKS -->
+<!-- SUPPORT / BRAND -->
+<section class="section">
+  <h3>Support</h3>
+  <p class="links">Contact · Privacy · Terms</p>
+</section>
+
 <section class="section">
   <h3>Follow HAWK</h3>
-  <p class="links">
-    Instagram · YouTube · Facebook
-  </p>
+  <p class="links">Instagram · YouTube · Facebook</p>
 </section>
 
 </body>
