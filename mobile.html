@@ -2,17 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>HAWK Mobile</title>
 
-<link rel="stylesheet" href="./mobile.css">
+  <link rel="stylesheet" href="./mobile.css">
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-  <script defer src="./script.js"></script>
+ <script defer src="./script.js"></script>
+
+  <style>
+    /* 🔥 CRITICAL: iframe touch fix */
+    .screen {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 56px;
+      width: 100%;
+      border: none;
+      pointer-events: none;
+    }
+
+    .screen.active {
+      pointer-events: auto;
+    }
+  </style>
 </head>
 
 <body>
@@ -21,8 +39,7 @@
 <iframe
   id="login-frame"
   src="./mobile-login.html"
-  class="screen"
-  style="display:none;"
+  class="screen active"
 ></iframe>
 
 <!-- 📱 APP -->
@@ -51,23 +68,33 @@
 </div>
 
 <script>
+  const loginFrame = document.getElementById("login-frame");
+  const appFrame = document.getElementById("app-frame");
+  const app = document.getElementById("app");
+
   function openHome() {
-    document.getElementById("app-frame").src = "mobile-home.html";
+    appFrame.src = "mobile-home.html";
   }
 
   function openProfile() {
-    document.getElementById("app-frame").src = "mobile-profile.html";
+    appFrame.src = "mobile-profile.html";
   }
 
-  // These are called from script.js after auth
+  // called from script.js
   window.showLogin = function () {
-    document.getElementById("login-frame").style.display = "block";
-    document.getElementById("app").style.display = "none";
+    loginFrame.style.display = "block";
+    loginFrame.classList.add("active");
+
+    app.style.display = "none";
+    appFrame.classList.remove("active");
   };
 
   window.showApp = function () {
-    document.getElementById("login-frame").style.display = "none";
-    document.getElementById("app").style.display = "block";
+    loginFrame.style.display = "none";
+    loginFrame.classList.remove("active");
+
+    app.style.display = "block";
+    appFrame.classList.add("active");
   };
 </script>
 
