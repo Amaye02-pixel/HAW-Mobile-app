@@ -1,10 +1,9 @@
 # Ignore everything
 *
 
-# Allow assets/web folder ONLY
-!assets/
-!assets/web/
-!assets/web/**
+# Allow web folder only
+!web/
+!web/**
 
 # Allow git config
 !.gitignore
