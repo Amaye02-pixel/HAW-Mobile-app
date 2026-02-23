@@ -1,6 +1,10 @@
 /************************************
-  ROOT THEME (HAWK)
+  HAWK MOBILE 
 *************************************/
+
+/* ================================
+   ROOT THEME
+================================ */
 :root {
   --bg: #000;
   --bg-soft: #0f0f10;
@@ -10,9 +14,9 @@
   --accent: #c6a15b;
 }
 
-/************************************
-  RESET + HARD WIDTH FIX
-*************************************/
+/* ================================
+   ABSOLUTE RESET (NO BOX POSSIBLE)
+================================ */
 *,
 *::before,
 *::after {
@@ -21,29 +25,46 @@
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  min-height: 100vh;
-  background: var(--bg);
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: var(--bg) !important;
   color: var(--text);
   font-family: "Helvetica Neue", system-ui, sans-serif;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
-/* KILL ANY BOXED LAYOUT */
-body > * {
-  width: 100%;
-  max-width: 100%;
+/* KILL ALL CONTAINERS */
+body,
+#app,
+#login-frame,
+iframe {
+  position: relative !important;
+  width: 100vw !important;
+  min-height: 100vh !important;
+  max-width: 100vw !important;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #000 !important;
 }
 
-/************************************
-  HERO
-*************************************/
+/* NOTHING IS ALLOWED TO CENTER / BOX */
+body > *,
+#app > *,
+#login-frame > * {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* ================================
+   HERO (HOME / PROFILE)
+================================ */
 .hero {
-  width: 100%;
-  min-height: 100vh;
-  padding: env(safe-area-inset-top) 20px 32px;
+  width: 100vw !important;
+  min-height: 100vh !important;
+  padding: env(safe-area-inset-top) 20px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,7 +72,7 @@ body > * {
   text-align: center;
   background:
     radial-gradient(circle at 50% 30%, rgba(198,161,91,0.25), rgba(0,0,0,0.85)),
-    linear-gradient(#000, #000);
+    #000;
 }
 
 .hero h1 {
@@ -62,25 +83,31 @@ body > * {
 
 .hero p {
   margin-top: 10px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   letter-spacing: 2px;
   color: var(--muted);
   text-transform: uppercase;
 }
 
-/************************************
-  SECTIONS (FULL WIDTH)
-*************************************/
+/* ================================
+   SECTIONS
+================================ */
 .section {
-  width: 100%;
+  width: 100vw;
   padding: 28px 20px;
 }
 
-.section h2,
-.section h3 {
-  margin-bottom: 16px;
+.section h2 {
+  font-size: 1rem;
   letter-spacing: 2px;
   text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.section h3 {
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  color: var(--muted);
 }
 
 .section p {
@@ -88,9 +115,9 @@ body > * {
   line-height: 1.6;
 }
 
-/************************************
-  FEATURED / PRODUCTS
-*************************************/
+/* ================================
+   PRODUCTS
+================================ */
 .product {
   display: flex;
   align-items: center;
@@ -117,9 +144,9 @@ body > * {
   color: var(--muted);
 }
 
-/************************************
-  SCROLL ROW (EDITORIAL)
-*************************************/
+/* ================================
+   EDITORIAL SCROLL
+================================ */
 .scroll-row {
   display: flex;
   gap: 12px;
@@ -135,9 +162,9 @@ body > * {
   flex-shrink: 0;
 }
 
-/************************************
-  FORMS
-*************************************/
+/* ================================
+   FORMS
+================================ */
 input,
 textarea {
   width: 100%;
@@ -150,8 +177,8 @@ textarea {
 }
 
 textarea {
-  resize: vertical;
   min-height: 120px;
+  resize: vertical;
 }
 
 button {
@@ -165,9 +192,9 @@ button {
   color: #000;
 }
 
-/************************************
-  PROFILE AVATAR
-*************************************/
+/* ================================
+   PROFILE
+================================ */
 .profile-avatar {
   width: 88px;
   height: 88px;
@@ -183,9 +210,6 @@ button {
   font-weight: 700;
 }
 
-/************************************
-  PROFILE CARD
-*************************************/
 .profile-card {
   width: 100%;
   padding: 18px;
@@ -206,27 +230,28 @@ button {
   margin-bottom: 12px;
 }
 
-/************************************
-  LINKS
-*************************************/
+/* ================================
+   LINKS
+================================ */
 .links {
   letter-spacing: 1.5px;
   font-size: 0.85rem;
   color: var(--muted);
+  text-align: center;
 }
 
-/************************************
-  DANGER BUTTON
-*************************************/
+/* ================================
+   DANGER BUTTON
+================================ */
 button.danger {
   background: transparent;
   color: #fff;
   border: 1px solid #fff;
 }
 
-/************************************
-  DETAILS (FAQ)
-*************************************/
+/* ================================
+   FAQ
+================================ */
 details {
   border: 1px solid rgba(255,255,255,0.1);
   margin-bottom: 10px;
@@ -239,9 +264,9 @@ summary {
   font-size: 0.9rem;
 }
 
-/************************************
-  SAFE AREA SUPPORT
-*************************************/
+/* ================================
+   SAFE AREA
+================================ */
 @supports (padding: env(safe-area-inset-bottom)) {
   body {
     padding-bottom: env(safe-area-inset-bottom);
