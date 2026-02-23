@@ -11,7 +11,7 @@
 }
 
 /************************************
-  RESET — HARD FULLSCREEN FIX
+  RESET — APK SHELL (NO SCROLL)
 *************************************/
 *,
 *::before,
@@ -28,21 +28,11 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: hidden;
+  overflow: hidden; /* SHELL NEVER SCROLLS */
 }
 
 /************************************
-  IFRAMES (REAL APP BEHAVIOR)
-*************************************/
-.screen {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-/************************************
-  APP ROOT
+  APP ROOT (FIXED FULLSCREEN)
 *************************************/
 #app {
   position: fixed;
@@ -50,6 +40,22 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--bg);
+}
+
+/************************************
+  IFRAMES — THIS IS THE SCROLL FIX
+*************************************/
+#login-frame,
+#app-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+
+  /* ✅ ENABLE SCROLL */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 /************************************
@@ -85,12 +91,11 @@ body {
 *************************************/
 #app-frame {
   flex: 1;
-  width: 100%;
   background: #000;
 }
 
 /************************************
-  BOTTOM NAV (NATIVE STYLE)
+  BOTTOM NAV (NATIVE)
 *************************************/
 .bottom-nav {
   height: 56px;
@@ -111,14 +116,11 @@ body {
 }
 
 /************************************
-  HERO (NO 100VH — APP SAFE)
+  HERO (CONTENT — NO 100VH)
 *************************************/
 .hero {
   width: 100%;
   padding: 72px 20px 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
   background:
     radial-gradient(circle at 50% 25%, rgba(198,161,91,0.25), rgba(0,0,0,0.9)),
