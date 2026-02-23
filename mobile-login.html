@@ -1,21 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/mobile.css">
-  <script defer src="/script.js"></script>
+  <meta charset="UTF-8" />
+
+  <!-- 🔥 THIS LINE IS CRITICAL -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Login</title>
+  <link rel="stylesheet" href="./mobile.css">
 </head>
+
 <body>
 
-<div class="auth-container">
+<div class="login-container">
   <h1>HAWK</h1>
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
+
+  <input id="email" type="email" placeholder="Email" />
+  <input id="password" type="password" placeholder="Password" />
 
   <button onclick="login()">Login</button>
   <button onclick="signup()">Create Account</button>
 
-  <p onclick="forgotPassword()">Forgot password?</p>
+  <p onclick="forgotPassword()" style="margin-top:12px; font-size:14px;">
+    Forgot password?
+  </p>
+
   <button onclick="googleLogin()">Continue with Google</button>
 </div>
 
