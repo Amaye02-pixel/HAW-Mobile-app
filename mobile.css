@@ -1,289 +1,237 @@
 /************************************
-  🌑 ROOT THEME (MATCH DESKTOP)
+  🌑 HAWK MOBILE THEME – STABLE
 *************************************/
+
+/* ===== ROOT THEME ===== */
 :root {
-  --bg: #0e0e0f;
-  --bg-soft: #151516;
+  --bg: #000;
+  --bg-soft: #0e0e0f;
   --text: #f2f2f2;
-  --muted: #999;
+  --muted: #9a9a9a;
   --accent: #c6a15b;
 }
 
-/************************************
-  🔄 RESET
-*************************************/
+/* ===== RESET ===== */
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html, body {
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
-  background: #000;
-  font-family: "Helvetica Neue", sans-serif;
+  background: var(--bg);
   color: var(--text);
-  overflow: hidden;
+  font-family: "Helvetica Neue", system-ui, sans-serif;
 }
 
-/************************************
-  📱 APP ROOT
-*************************************/
+/* ===== APP ROOT ===== */
 #app {
+  position: fixed;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(circle at top, rgba(198,161,91,0.08), transparent 45%),
-    linear-gradient(180deg, #0d0d0f, #050506);
+  background: var(--bg);
 }
 
-/************************************
-  🧭 HEADER
-*************************************/
+/* ===== HEADER ===== */
 .app-header {
-  height: 58px;
-  padding: 0 16px;
+  height: 56px;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(0,0,0,0.78);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0 16px;
   flex-shrink: 0;
 }
 
 .brand {
-  font-size: 0.85rem;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: #fff;
+  letter-spacing: 4px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .app-header button {
   background: none;
-  border: 0;
-  color: #fff;
-  font-size: 1.25rem;
+  border: none;
+  color: var(--text);
+  font-size: 20px;
 }
 
-/************************************
-  🌐 MAIN / IFRAME (DO NOT BREAK)
-*************************************/
+/* ===== CONTENT AREA ===== */
 #app-frame {
   flex: 1;
-  width: 100%;
-  background: #000;
-}
-
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-  pointer-events: auto;
-  touch-action: manipulation;
-}
-
-/************************************
-  🔥 BOTTOM NAV (ANIMATED GLOW)
-*************************************/
-.bottom-nav {
-  height: 60px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(255,255,255,0.08);
   position: relative;
   overflow: hidden;
 }
 
-/* animated gold glow bar */
-.bottom-nav::before {
-  content: "";
+/* iframe MUST scroll */
+#app-frame iframe {
   position: absolute;
-  top: 0;
-  left: -40%;
-  width: 40%;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--accent),
-    transparent
-  );
-  animation: navGlow 4s linear infinite;
-  opacity: 0.6;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-@keyframes navGlow {
-  0% { left: -40%; }
-  100% { left: 100%; }
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  height: 60px;
+  background: rgba(0,0,0,0.9);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .bottom-nav button {
   background: none;
-  border: 0;
-  color: #bdbdbd;
-  font-size: 0.7rem;
-  letter-spacing: 1.4px;
+  border: none;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  position: relative;
 }
 
-.bottom-nav button.active {
+.bottom-nav button:active {
   color: var(--accent);
 }
 
-.bottom-nav button.active::after {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 10px rgba(198,161,91,0.8);
-}
-
 /************************************
-  🔐 AUTH / LOGIN SCREEN (DESKTOP MATCH)
+  🔐 LOGIN SCREEN (DESKTOP MATCH)
 *************************************/
 .login-container {
-  min-height: 100%;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #0f0f0f, #000);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: 32px 20px;
-  background:
-    radial-gradient(circle at top, #0f0f0f, #000);
-  animation: fadeIn 0.6s ease;
+  padding: 28px;
 }
 
-.login-container .logo {
-  font-size: 2.8rem;
+.login-container h1 {
+  text-align: center;
   letter-spacing: 6px;
-  margin-bottom: 26px;
-  text-transform: uppercase;
+  margin-bottom: 28px;
 }
 
 .login-container input {
   width: 100%;
-  max-width: 320px;
-  padding: 14px 16px;
+  padding: 14px;
   margin-bottom: 14px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.15);
   color: #fff;
-  font-size: 0.95rem;
-  outline: none;
+  font-size: 15px;
 }
 
 .login-container input:focus {
+  outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(198,161,91,0.15);
 }
 
 .login-container button {
-  width: 100%;
-  max-width: 320px;
   padding: 14px;
-  margin-top: 6px;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(198,161,91,0.35),
-      rgba(198,161,91,0.15)
-    );
-  border: 1px solid rgba(198,161,91,0.9);
-  color: #fff;
-  font-size: 0.75rem;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: transform 0.25s ease, background 0.25s ease;
-}
-
-.login-container button:hover {
-  transform: translateY(-2px);
-  background: rgba(198,161,91,0.45);
-}
-
-.login-container .forgot {
-  margin-top: 10px;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  opacity: 0.6;
-}
-
-/************************************
-  👤 PROFILE PANEL (MOBILE)
-*************************************/
-#profile {
-  position: fixed;
-  top: 72px;
-  right: 12px;
-  background: rgba(0,0,0,0.82);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 14px 16px;
-  min-width: 200px;
-  display: none;
-  z-index: 999;
-}
-
-#profile p {
-  font-size: 0.75rem;
-  margin-bottom: 6px;
-  color: #fff;
-  opacity: 0.9;
-}
-
-#profile button {
-  width: 100%;
-  padding: 8px;
-  margin-top: 6px;
-  background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.4);
-  font-size: 0.7rem;
-  letter-spacing: 1.4px;
-  cursor: pointer;
-}
-
-#profile button:hover {
-  background: #fff;
+  background: var(--accent);
   color: #000;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.login-container .google {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.login-container p {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
 }
 
 /************************************
-  🧠 AUTH STATE VISIBILITY
+  📦 PRODUCT / SECTION BASICS
 *************************************/
-body.logged-in #profile {
-  display: block;
+.section {
+  padding: 24px 6%;
 }
 
-body.logged-in .login-container {
-  display: none !important;
+.hero {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: linear-gradient(to bottom, #000, #050506);
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.hero p {
+  margin-top: 12px;
+  color: var(--muted);
+  letter-spacing: 1.4px;
+}
+
+.product {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, #121214, #09090a);
+}
+
+.product img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.product strong {
+  font-size: 14px;
+}
+
+.product span {
+  color: var(--accent);
+  font-size: 13px;
 }
 
 /************************************
-  🎬 ANIMATIONS
+  👤 PROFILE
 *************************************/
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.profile {
+  padding: 28px;
+}
+
+.profile h2 {
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.profile p {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/************************************
+  🧠 SAFETY: DO NOT BLOCK TOUCH
+*************************************/
+iframe,
+button,
+input {
+  pointer-events: auto;
+  touch-action: manipulation;
 }
