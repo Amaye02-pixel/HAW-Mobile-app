@@ -19,9 +19,8 @@ export default function App() {
 
       <WebView
          
-        source={{ uri: "https://hawkwebsite-sable.vercel.app" }}
+        source={{ uri: "https://haw-mobile-app.vercel.app/mobile.html" }}
 
-        /* ✅ REQUIRED */
         javaScriptEnabled={true}
         domStorageEnabled={true}
         originWhitelist={["*"]}

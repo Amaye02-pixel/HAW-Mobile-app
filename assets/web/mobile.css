@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f4f4f4;
+}
+
+.app-header {
+  height: 56px;
+  background: #000;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  display: flex;
+  background: white;
+  border-top: 1px solid #ddd;
+}
+
+.bottom-nav button {
+  flex: 1;
+  border: none;
+  background: none;
+  font-size: 14px;
+}
+
+.screen {
+  padding: 16px;
+  padding-bottom: 70px;
+}

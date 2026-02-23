@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="mobile.css" />
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+
+<!-- Top App Bar -->
+<header class="app-header">
+  <span>HAWK</span>
+  <button onclick="location.href='mobile-profile.html'">👤</button>
+</header>
+
+<!-- Screen container -->
+<main class="screen" id="screen">
+  <!-- injected content -->
+</main>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+  <button onclick="go('mobile-home.html')">Home</button>
+  <button onclick="go('mobile-profile.html')">Profile</button>
+  <button onclick="logout()">Logout</button>
+</nav>
+
+<script>
+  function go(page) {
+    document.getElementById("screen").src = page;
+  }
+</script>
+
+</body>
+</html>
