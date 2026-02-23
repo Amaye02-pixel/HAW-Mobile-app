@@ -1,157 +1,104 @@
-/* ======================================================
-   HAWK MOBILE APP — FINAL STABLE
-   ====================================================== */
+/************************************
+  ROOT THEME (HAWK)
+*************************************/
+:root {
+  --bg: #000;
+  --bg-soft: #0f0f10;
+  --card: #111214;
+  --text: #f2f2f2;
+  --muted: #9a9a9a;
+  --accent: #c6a15b;
+}
 
-* {
+/************************************
+  RESET + HARD WIDTH FIX
+*************************************/
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  background: #000;
-  color: #fff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-/* ===== APP ROOT ===== */
-#app {
+  width: 100vw;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #000;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Helvetica Neue", system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
-/* ===== HIDE DESKTOP ELEMENTS ===== */
-nav,
-header,
-.desktop,
-.desktop-only {
-  display: none !important;
+/* KILL ANY BOXED LAYOUT */
+body > * {
+  width: 100%;
+  max-width: 100%;
 }
 
-/* ======================================================
-   HERO (HOME / PROFILE)
-   ====================================================== */
+/************************************
+  HERO
+*************************************/
 .hero {
-  padding: 40px 20px;
+  width: 100%;
+  min-height: 100vh;
+  padding: env(safe-area-inset-top) 20px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
   background:
-    radial-gradient(circle at center, rgba(198,161,91,0.18), transparent 60%),
-    #000;
+    radial-gradient(circle at 50% 30%, rgba(198,161,91,0.25), rgba(0,0,0,0.85)),
+    linear-gradient(#000, #000);
 }
 
 .hero h1 {
-  font-size: 34px;
+  font-size: 3rem;
   letter-spacing: 6px;
-  margin-bottom: 6px;
+  margin: 0;
 }
 
 .hero p {
-  font-size: 13px;
-  opacity: 0.7;
+  margin-top: 10px;
+  font-size: 0.9rem;
   letter-spacing: 2px;
-}
-
-/* ======================================================
-   SECTIONS
-   ====================================================== */
-.section {
-  padding: 26px 18px;
-}
-
-.section h2 {
-  font-size: 17px;
-  letter-spacing: 2px;
-  margin-bottom: 14px;
-}
-
-.section h3 {
-  font-size: 14px;
-  opacity: 0.75;
-  letter-spacing: 1.2px;
-}
-
-/* ======================================================
-   PROFILE AVATAR
-   ====================================================== */
-.profile-avatar {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  margin: 0 auto 16px;
-  display: grid;
-  place-items: center;
-  font-size: 28px;
-  letter-spacing: 2px;
-  font-weight: 600;
-  color: #000;
-  background:
-    radial-gradient(circle at top, #e3c07a, #8f6d2f);
-  box-shadow: 0 10px 28px rgba(198,161,91,0.35);
-}
-
-/* ======================================================
-   PROFILE CARD
-   ====================================================== */
-.profile-card {
-  background:
-    linear-gradient(180deg, rgba(18,18,18,0.95), rgba(8,8,8,0.95));
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
-  padding: 18px 16px;
-  margin-bottom: 20px;
-}
-
-.profile-card .label {
-  font-size: 11px;
-  letter-spacing: 1.6px;
-  opacity: 0.55;
+  color: var(--muted);
   text-transform: uppercase;
 }
 
-.profile-card .value {
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  margin-bottom: 14px;
-}
-
-/* ======================================================
-   LOGOUT BUTTON
-   ====================================================== */
-button {
+/************************************
+  SECTIONS (FULL WIDTH)
+*************************************/
+.section {
   width: 100%;
-  padding: 14px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
+  padding: 28px 20px;
 }
 
-button.danger {
-  background: transparent;
-  color: #c6a15b;
-  border: 1px solid #c6a15b;
+.section h2,
+.section h3 {
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-/* ======================================================
-   PRODUCT CARDS
-   ====================================================== */
+.section p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/************************************
+  FEATURED / PRODUCTS
+*************************************/
 .product {
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 14px;
   margin-bottom: 12px;
-  background: #0c0c0c;
+  background: linear-gradient(180deg, #111214, #080808);
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
 }
 
 .product img {
@@ -161,81 +108,142 @@ button.danger {
 }
 
 .product strong {
-  font-size: 14px;
-  letter-spacing: 1px;
+  display: block;
+  font-size: 0.95rem;
 }
 
 .product p {
-  font-size: 12px;
-  opacity: 0.65;
+  font-size: 0.8rem;
+  color: var(--muted);
 }
 
-/* ======================================================
-   EDITORIAL SCROLL
-   ====================================================== */
+/************************************
+  SCROLL ROW (EDITORIAL)
+*************************************/
 .scroll-row {
   display: flex;
   gap: 12px;
   overflow-x: auto;
+  padding-bottom: 6px;
 }
 
 .scroll-row img {
   width: 140px;
-  height: 190px;
+  height: 180px;
   object-fit: cover;
-  border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.1);
+  flex-shrink: 0;
 }
 
-/* ======================================================
-   FAQ
-   ====================================================== */
-details {
-  background: #0d0d0d;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 6px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-}
-
-summary {
-  font-size: 14px;
-  letter-spacing: 1px;
-  cursor: pointer;
-}
-
-/* ======================================================
-   CONTACT / SUPPORT
-   ====================================================== */
+/************************************
+  FORMS
+*************************************/
 input,
 textarea {
   width: 100%;
-  padding: 12px;
-  background: #0e0e0e;
-  border: 1px solid rgba(255,255,255,0.15);
+  padding: 14px;
+  margin-bottom: 12px;
+  background: #111;
+  border: 1px solid #2a2a2a;
   color: #fff;
-  margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 
 textarea {
-  min-height: 90px;
+  resize: vertical;
+  min-height: 120px;
 }
 
-/* ======================================================
-   LINKS
-   ====================================================== */
-.links {
-  font-size: 13px;
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  font-weight: 600;
   letter-spacing: 1px;
-  opacity: 0.7;
-  text-align: center;
+  cursor: pointer;
+  background: #fff;
+  color: #000;
 }
 
-/* ======================================================
-   SAFE TOUCH
-   ====================================================== */
-button,
+/************************************
+  PROFILE AVATAR
+*************************************/
+.profile-avatar {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, #fff, var(--accent));
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+/************************************
+  PROFILE CARD
+*************************************/
+.profile-card {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(180deg, #111214, #090909);
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 20px;
+}
+
+.profile-card .label {
+  font-size: 0.7rem;
+  letter-spacing: 1.6px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.profile-card .value {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+/************************************
+  LINKS
+*************************************/
+.links {
+  letter-spacing: 1.5px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/************************************
+  DANGER BUTTON
+*************************************/
+button.danger {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+/************************************
+  DETAILS (FAQ)
+*************************************/
+details {
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 10px;
+  padding: 12px;
+  background: #0e0e0f;
+}
+
 summary {
-  touch-action: manipulation;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/************************************
+  SAFE AREA SUPPORT
+*************************************/
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
