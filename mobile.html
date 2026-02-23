@@ -7,40 +7,22 @@
 
   <link rel="stylesheet" href="./mobile.css">
 
-  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-  <!-- 🔥 MESSAGE BRIDGE (MUST BE BEFORE script.js) -->
-  <script>
-    window.addEventListener("message", (e) => {
-      const { type, email, password } = e.data || {};
-
-      if (type === "login") login(email, password);
-      if (type === "signup") signup(email, password);
-      if (type === "reset") forgotPassword(email);
-      if (type === "google") googleLogin();
-    });
-  </script>
-
-  <!-- Main JS -->
-  <script src="./script.js"></script>
+  <script src="./script.js" defer></script>
 </head>
 
 <body>
 
-<!-- 🔐 LOGIN -->
 <iframe
   id="login-frame"
   src="./mobile-login.html"
   class="screen"
-  style="display:none;"
 ></iframe>
 
-<!-- 📱 APP -->
 <div id="app" style="display:none;">
-
   <header class="app-header">
     <span class="brand">HAWK</span>
     <button onclick="openProfile()">👤</button>
@@ -49,7 +31,6 @@
   <iframe
     id="app-frame"
     src="./mobile-home.html"
-    class="screen"
   ></iframe>
 
   <nav class="bottom-nav">
@@ -57,7 +38,6 @@
     <button onclick="openProfile()">Profile</button>
     <button onclick="logout()">Logout</button>
   </nav>
-
 </div>
 
 <script>
@@ -69,14 +49,14 @@
     document.getElementById("app-frame").src = "./mobile-profile.html";
   }
 
-  window.showLogin = () => {
+  window.showLogin = function () {
     document.getElementById("login-frame").style.display = "block";
     document.getElementById("app").style.display = "none";
   };
 
-  window.showApp = () => {
+  window.showApp = function () {
     document.getElementById("login-frame").style.display = "none";
-    document.getElementById("app").style.display = "block";
+    document.getElementById("app").style.display = "flex";
   };
 </script>
 
