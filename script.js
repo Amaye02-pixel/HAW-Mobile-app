@@ -144,5 +144,5 @@ function showApp() {
   const appRoot = document.getElementById("app");
 
   if (loginFrame) loginFrame.style.display = "none";
-  if (appRoot) appRoot.style.display = "block";
+  if (appRoot) appRoot.style.display = "flex";
 }

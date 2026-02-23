@@ -1,7 +1,27 @@
 /************************************
   🌑 HAWK MOBILE THEME – STABLE
 *************************************/
+/* ===== FULLSCREEN IFRAME FIX ===== */
+#login-frame {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  z-index: 9999;
+}
 
+#app {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#app-frame {
+  flex: 1;
+  border: none;
+}
 /* ===== ROOT THEME ===== */
 :root {
   --bg: #000;
